@@ -63,6 +63,93 @@ public class LiveOrderBoardTest {
 
     }
 
+    @Test
+    public void test_order_summary_buy() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 500.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Pete123",2.5, 350.00, OrderType.BUY));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 2);
+
+
+    }
+
+
+    @Test
+    public void test_order_summary_buy_aggregate_quantity_sort_descending() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 500.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Pete123",2.5, 350.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Sam123",4.5, 350.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Steve123",5.5, 500.00, OrderType.BUY));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 2);
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getAggregatedQuantity() == 8.5);
+        assertTrue(liveOrderBoard.getOrderSummary().get(1).getPrice() == 350);
+
+    }
+
+    @Test
+    public void test_order_summary_sell() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 500.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Pete123",2.5, 350.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Harry123",2.5, 450.00, OrderType.SELL));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 3);
+
+
+    }
+
+
+    @Test
+    public void test_order_summary_sell_aggregate_quantity_sort_ascending() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 450.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Pete123",2.5, 450.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Sam123",4.5, 420.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Steve123",5.5, 460.00, OrderType.SELL));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 3);
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getAggregatedQuantity() == 4.5);
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getPrice() == 420);
+
+    }
+
+    @Test
+    public void test_order_summary() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 450.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Pete123",2.5, 450.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Sam123",4.5, 420.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Steve123",5.5, 460.00, OrderType.SELL));
+
+        liveOrderBoard.register(new Order("Sal134",3.0, 500.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Pat123",2.5, 350.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Sarah123",4.5, 350.00, OrderType.BUY));
+        liveOrderBoard.register(new Order("Tom123",5.5, 500.00, OrderType.BUY));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 5);
+
+
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getAggregatedQuantity() == 8.5);
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getPrice() == 500);
+        assertTrue(liveOrderBoard.getOrderSummary().get(0).getOrderType().equals(OrderType.BUY));
+
+        assertTrue(liveOrderBoard.getOrderSummary().get(1).getAggregatedQuantity() == 7.0);
+        assertTrue(liveOrderBoard.getOrderSummary().get(1).getPrice() == 350);
+        assertTrue(liveOrderBoard.getOrderSummary().get(1).getOrderType().equals(OrderType.BUY));
+
+        assertTrue(liveOrderBoard.getOrderSummary().get(2).getAggregatedQuantity() == 4.5);
+        assertTrue(liveOrderBoard.getOrderSummary().get(2).getPrice() == 420);
+        assertTrue(liveOrderBoard.getOrderSummary().get(2).getOrderType().equals(OrderType.SELL));
+
+        assertTrue(liveOrderBoard.getOrderSummary().get(4).getAggregatedQuantity() == 5.5);
+        assertTrue(liveOrderBoard.getOrderSummary().get(4).getPrice() == 460);
+        assertTrue(liveOrderBoard.getOrderSummary().get(4).getOrderType().equals(OrderType.SELL));
+
+    }
+
 
 
 }

@@ -11,16 +11,17 @@ public class Order {
     private Double orderQuantity;
     private Double unitPrice;
     private OrderType orderType;
-    private LocalDateTime orderExecutiontime;
+    private LocalDateTime orderExecutionTime;
     private Random orderIdGenerator = new Random();
+    public static final int LIMIT = 1000;
 
     public Order(String userId, Double orderQuantity, Double unitPrice, OrderType orderType) {
-        this.orderId = orderIdGenerator.nextInt(1000);
+        this.orderId = orderIdGenerator.nextInt(LIMIT);
         this.userId = userId;
         this.orderQuantity = orderQuantity;
         this.unitPrice = unitPrice;
         this.orderType = orderType;
-        this.orderExecutiontime = LocalDateTime.now();
+        this.orderExecutionTime = LocalDateTime.now();
     }
 
     public int getOrderId() {
@@ -63,12 +64,12 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public LocalDateTime getOrderExecutiontime() {
-        return orderExecutiontime;
+    public LocalDateTime getOrderExecutionTime() {
+        return orderExecutionTime;
     }
 
-    public void setOrderExecutiontime(LocalDateTime orderExecutiontime) {
-        this.orderExecutiontime = orderExecutiontime;
+    public void setOrderExecutionTime(LocalDateTime orderExecutionTime) {
+        this.orderExecutionTime = orderExecutionTime;
     }
 
     @Override
@@ -92,7 +93,7 @@ public class Order {
                 ", orderQuantity=" + orderQuantity +
                 ", unitPrice=" + unitPrice +
                 ", orderType=" + orderType +
-                ", orderExecutiontime=" + orderExecutiontime +
+                ", orderExecutionTime=" + orderExecutionTime +
                 '}';
     }
 }
