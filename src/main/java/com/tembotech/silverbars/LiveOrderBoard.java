@@ -1,5 +1,6 @@
 package com.tembotech.silverbars;
 
+import com.tembotech.silverbars.exception.OrderNotFoundException;
 import com.tembotech.silverbars.model.Order;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ public class LiveOrderBoard {
     public int register (Order order) {
         liveOrders.add(order);
         return order.getOrderId();
+    }
+
+    public void cancel (int orderId) throws OrderNotFoundException {
+        if (!liveOrders.removeIf(o -> o.getOrderId() == orderId)) {
+            throw new OrderNotFoundException(orderId);
+        }
     }
 
 
