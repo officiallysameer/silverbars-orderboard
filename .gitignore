@@ -20,3 +20,10 @@
 *.zip
 *.tar.gz
 *.rar
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+.idea
+

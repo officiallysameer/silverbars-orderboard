@@ -1,23 +1,33 @@
 package com.tembotech.silverbars.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Random;
 
 public class Order {
 
-    private String orderId;
+    private int orderId;
     private String userId;
-    private BigDecimal orderQuantity;
-    private BigDecimal unitPrice;
+    private Double orderQuantity;
+    private Double unitPrice;
     private OrderType orderType;
     private LocalDateTime orderExecutiontime;
+    private Random orderIdGenerator = new Random();
 
-    public String getOrderId() {
+    public Order(String userId, Double orderQuantity, Double unitPrice, OrderType orderType) {
+        this.orderId = orderIdGenerator.nextInt(1000);
+        this.userId = userId;
+        this.orderQuantity = orderQuantity;
+        this.unitPrice = unitPrice;
+        this.orderType = orderType;
+        this.orderExecutiontime = LocalDateTime.now();
+    }
+
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
@@ -29,19 +39,19 @@ public class Order {
         this.userId = userId;
     }
 
-    public BigDecimal getOrderQuantity() {
+    public Double getOrderQuantity() {
         return orderQuantity;
     }
 
-    public void setOrderQuantity(BigDecimal orderQuantity) {
+    public void setOrderQuantity(Double orderQuantity) {
         this.orderQuantity = orderQuantity;
     }
 
-    public BigDecimal getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(BigDecimal unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -66,7 +76,7 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId.equals(order.orderId);
+        return orderId == order.orderId;
     }
 
     @Override
