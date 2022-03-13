@@ -161,6 +161,17 @@ public class LiveOrderBoardTest {
 
     }
 
+    public void test_order_summary_sell4() {
+
+        liveOrderBoard.register(new Order("Sally234",3.0, 500.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Pete123",2.5, 350.00, OrderType.SELL));
+        liveOrderBoard.register(new Order("Harry123",2.5, 450.00, OrderType.SELL));
+
+        assertTrue(liveOrderBoard.getOrderSummary().size() == 3);
+
+
+    }
+
 
 
 }
